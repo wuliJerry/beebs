@@ -24,6 +24,8 @@
 #include "config.h"
 #endif
 
+#include <stdint.h>
+
 /* Include board support header if we have one */
 
 #ifdef HAVE_BOARDSUPPORT_H
@@ -68,6 +70,21 @@ int verify_benchmark (int result);
 void initialise_board (void);
 void start_trigger (void);
 void stop_trigger (void);
+
+struct beebs_metrics
+{
+  uint64_t mcycle_start;
+  uint64_t mcycle_end;
+  uint64_t minstret_start;
+  uint64_t minstret_end;
+  uint64_t cycles;
+  uint64_t retired_instructions;
+  uint64_t ipc_numerator;
+  uint64_t ipc_denominator;
+  uint64_t text_size;
+};
+
+extern volatile struct beebs_metrics beebs_metrics;
 
 /* Every benchmark implements this as its entry point. Don't allow it to be
    inlined! */

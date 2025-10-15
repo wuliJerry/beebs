@@ -25,6 +25,9 @@
 
 #include "support.h"
 
+/* Accumulates run metrics for tooling to read after each benchmark. */
+volatile struct beebs_metrics beebs_metrics = {0};
+
 
 extern int initialise_benchmark (void);
 extern int verify_benchmark (int unused);
