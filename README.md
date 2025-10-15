@@ -48,6 +48,27 @@ example, to configure for the STM32F0DISCOVERY:
     $ ./configure --host=arm-none-eabi --with-chip=stm32f051 \
                   --with-board=stm32f0discovery
 
+### Example: Bare-Metal RV64I (rv64imac)
+
+The generic RV64 board/chip pairing uses the files under
+`config/riscv64/{chips,boards}` and expects a RISC-V cross toolchain that
+provides C runtime support for `-march=rv64imac -mabi=lp64` (the toolchain must
+include the `zicsr` extension so that CSR instructions assemble correctly).
+
+Configure and build with:
+
+```sh
+$ ./configure --host=riscv64-unknown-elf \
+              --with-board=none \
+              --with-chip=generic \
+              CC=riscv64-unknown-elf-gcc \
+              CFLAGS="-Os -march=rv64imac -mabi=lp64" \
+              LDFLAGS="-march=rv64imac -mabi=lp64"
+$ make
+```
+
+Each benchmark binary will be emitted in its directory under `src/<benchmark>/`.
+
 ## Using the tests
 
 All tests provide the functions initialize\_trigger (), start\_trigger () and
